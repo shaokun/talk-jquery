@@ -1,0 +1,85 @@
+<%
+names = ["wu", "adeh", "mysen"]
+%>
+
+<ul id="names">
+  <% names.each do |name| %>
+  <%= content_tag :li, name, :abc => "123", :data => {:age => rand, :name => name} %>
+  <% end %>
+</ul>
+
+<div id="accordion">
+  <h3>Write code after Document is Loaded</h3>
+  <div>
+    $(function() {
+      ... code here execute when dom is ready
+    });
+  </div>
+
+  <h3>Get by ID</h3>
+  <div>
+    <div id="notice">This is a notice. Find me by ID.</div>
+  </div>
+
+  <h3>Get by class</h3>
+  <div>
+    <ul>
+      <% 10.times do |i| %>
+      <li class="item" data-id="<%= i %>">Item <%= i %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <h3>Get by attribute</h3>
+  <div>
+    <div name="myname-abc">Can you get my content???</div>
+    <%= link_to_function "Get the content", "get_content()" %>
+  </div>
+  
+  <h3>Append elem to DOM</h3>
+  <div>
+    <ul id="list">
+      <li>abc</li>
+      <li>def</li>
+    </ul>
+    New Item Content: <%= text_field_tag :new_list_item %>
+    <%= link_to_function "Add more", :id => "add_new_item" %>
+  </div>
+
+  <h3>CSS</h3>
+  <div>
+    <div id="decorate_me">Make me pretty</div>
+    <%= link_to_function "do it", "decorate_me()" %>
+  </div>
+
+  <h3>Pass data from ruby to JS</h3>
+  <div>
+    <pre>
+      var id = "138423";
+      <%= '<li data-name="" data-id="< %= 11414 % >"></li>' %>
+    </pre>
+  </div>
+  
+  <h3>Bind Event</h3>
+  <div>
+    <%= link_to "click me", nil, :id => "a_link", :data => {:a_key => "1"} %>
+  </div>
+
+  <h3>Ajax</h3>
+  <div>
+    <%= form_tag "/home/register", :id => "register_form" do %>
+      <%= text_field_tag :name %>
+      <%= text_field_tag :birthday %>
+      <%= submit_tag %>
+    <% end %>
+  </div>
+  
+  <h3>Get the code out of the view</h3>
+</div>
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+window.names = <%= raw names.to_json %>;
+</script>
